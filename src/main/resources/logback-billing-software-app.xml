@@ -1,0 +1,96 @@
+<configuration>
+
+    <property name="APP_NAME" value="SHAKTI_BAZAAR"/>
+    <property name="LOG_PATH" value="logs"/>
+
+    <!-- Console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [${APP_NAME}] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Email Logs -->
+    <appender name="EMAIL_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/email.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/email-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [${APP_NAME}] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Form Operations -->
+    <appender name="FORM_OPERATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/formOperations.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/formOperations-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [${APP_NAME}] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Main App -->
+    <appender name="SHAKTI_BAZAAR_APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/shakti-bazaar.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/shakti-bazaar-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [${APP_NAME}] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Hibernate SQL -->
+    <appender name="HIBERNATE_SQL_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/hibernate-sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/hibernate-sql-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [${APP_NAME}] %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Regex Masking For Password    -->
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg%n</pattern>
+            <replace>
+                <regex>(password=)([^,]+)</regex>
+                <replacement>$1******</replacement>
+            </replace>
+        </layout>
+    </encoder>
+
+
+    <!-- Loggers -->
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+        <appender-ref ref="HIBERNATE_SQL_LOG"/>
+    </logger>
+
+    <logger name="com.ecom.Shakti.Bazaar.util.EmailService" level="INFO" additivity="false">
+        <appender-ref ref="EMAIL_LOG"/>
+    </logger>
+
+    <logger name="com.ecom.Shakti.Bazaar.controller.User_Access_Management" level="INFO" additivity="false">
+        <appender-ref ref="FORM_OPERATION_LOG"/>
+    </logger>
+
+    <logger name="com.ecom.Shakti.Bazaar" level="INFO" additivity="false">
+        <appender-ref ref="SHAKTI_BAZAAR_APP"/>
+    </logger>
+
+    <!-- Root -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SHAKTI_BAZAAR_APP"/>
+    </root>
+
+</configuration>

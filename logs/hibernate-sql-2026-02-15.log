@@ -1,0 +1,21 @@
+2026-02-15 19:10:43 [SHAKTI_BAZAAR] DEBUG - 
+    create table user (
+        user_id bigint not null,
+        address varchar(255),
+        created_at datetime(6) not null,
+        email_id varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        mobile_number varchar(255),
+        password varchar(255),
+        role varchar(255),
+        updated_at datetime(6) not null,
+        user_name varchar(255),
+        primary key (user_id)
+    ) engine=InnoDB
+2026-02-15 19:10:43 [SHAKTI_BAZAAR] DEBUG - 
+    create table user_seq (
+        next_val bigint
+    ) engine=InnoDB
+2026-02-15 19:10:43 [SHAKTI_BAZAAR] DEBUG - 
+    insert into user_seq ( next_val ) values ( 1 )
